@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  caddy:
+    image: lucaslorentz/caddy-docker-proxy:ci-alpine
+    ports:
+      - 80:80
+    environment:
+      - CADDY_INGRESS_NETWORKS=my_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - caddy_data:/data
+    restart: unless-stopped
+    labels:
+      caddy.auto_https: "off"
+      caddy.http_port: "80"
+  apache:
+    image: httpd:2-alpine
+    volumes:
+      - $PWD/www:/usr/local/apache2/htdocs
+    labels:
+      caddy: apache.local.gd:80
+      caddy.reverse_proxy.to: "{{upstreams http 80}}"
+      caddy.encode.gzip: "9"
+  api:
+    image: raonigabriel/spring-qrcode-example
+    restart: unless-stopped
+    labels:
+      caddy: api.local.gd:80
+      caddy.reverse_proxy.to: "{{upstreams http 8080}}"
+networks:
+  default:
+    name: my_network
+
+volumes:
+  caddy_data: {}
