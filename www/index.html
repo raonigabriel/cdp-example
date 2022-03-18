@@ -1,0 +1,39 @@
+<!doctype html>
+<html class="no-js" lang="enUS">
+    <head>
+        <meta charset="utf-8">
+        <title>Sample App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:,">
+        <style>
+            [v-cloak] {
+                display: none;
+            }            
+        </style>
+    </head>
+    <body>
+        <div id="app" v-clock>
+            <h1>Sample App, made using Vue.js</h1>
+            <h5>Just type something below and you will see its updated QR-CODE underneath</h5>
+            <div>
+                <input type="text"  maxlength="64" size="64" v-model="message">
+            </div>
+            <img v-if="message.length > 0" v-bind:src="qrCodeUrl" width="256" height="256">
+          </div>
+          
+        <script src="./vue/2.6.14/vue.min.js"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello World!'
+                },
+                computed: {
+                    qrCodeUrl: function () {
+                        return 'http://api.local.gd/qrcode?text=' + encodeURI(this.message)
+                    }
+                }                
+            })     
+        </script>
+    </body>
+</html>
