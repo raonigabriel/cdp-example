@@ -16,8 +16,8 @@ git clone https://github.com/raonigabriel/cdp-example.git
 
 
 ## Usage
-cd cdp-example
 ```
+cd cdp-example
 docker compose up -d
 ```
 
