@@ -18,6 +18,7 @@ services:
     image: httpd:2-alpine
     volumes:
       - $PWD/www:/usr/local/apache2/htdocs
+    restart: unless-stopped  
     labels:
       caddy: apache.local.gd:80
       caddy.reverse_proxy.to: "{{upstreams http 80}}"
