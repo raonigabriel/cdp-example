@@ -11,7 +11,7 @@ This is an example demonstrating how to use caddy-docker-proxy
 
 ## Getting the code
 ```
-https://github.com/raonigabriel/cdp-example.git
+git clone https://github.com/raonigabriel/cdp-example.git
 ```
 
 
